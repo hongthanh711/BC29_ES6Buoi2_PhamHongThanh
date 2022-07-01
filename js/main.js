@@ -97,15 +97,28 @@ let dataGlasses = [
   },
 ];
 
-const clickGlass = () => {
-  console.log(2);
+const clickGlass = (id) => {
+  let glass = {};
+  for (let i = 0; i < dataGlasses.length; i++) {
+    glass = dataGlasses[i];
+    if (id === glass.id) {
+      const virtualImg = `<img src=${glass.virtualImg}>`;
+      document.getElementById("avatar").innerHTML = virtualImg;
+
+      const info = `<h3>${glass.brand}</h3>
+      <button class="btn btn-danger">$${glass.price}</button> <span class="text-success">Stocking</span>
+      <p>${glass.description}</p>`;
+      document.getElementById("glassesInfo").style.display = "block";
+      document.getElementById("glassesInfo").innerHTML = info;
+    }
+  }
 };
-window.clickGlass = clickGlass;
+window.clickGlass = (id) => clickGlass(id);
 
 const renderGlass = (data, id) => {
   let content = "";
   data.forEach(function (item) {
-    content += ` <div class="col-4" onclick="clickGlass()">
+    content += `<div class="col-4" onclick="clickGlass('${item.id}')">
           <img src="${item.src}" alt="" class="img-fluid">
       </div>`;
     return content;
